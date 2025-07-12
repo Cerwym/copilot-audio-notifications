@@ -3,6 +3,15 @@
   "displayName": "Copilot Audio Notifications",
   "description": "Audio notifications when Copilot requires user input",
   "version": "0.0.1",
+  "publisher": "Cerwym",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Cerwym/copilot-audio-notifications.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Cerwym/copilot-audio-notifications/issues"
+  },
+  "homepage": "https://github.com/Cerwym/copilot-audio-notifications#readme",
   "engines": {
     "vscode": "^1.102.0"
   },
