@@ -1,8 +1,8 @@
 {
   "name": "copilot-audio-notifications",
-  "displayName": "Copilot Audio Notifications",
-  "description": "Audio notifications when Copilot requires user input",
-  "version": "0.0.1",
+  "displayName": "%extension.displayName%",
+  "description": "%extension.description%",
+  "version": "1.0.0",
   "publisher": "PeterLockett",
   "repository": {
     "type": "git",
@@ -23,6 +23,16 @@
     "AI",
     "Chat"
   ],
+  "keywords": [
+    "copilot",
+    "ai",
+    "audio",
+    "notifications",
+    "alerts",
+    "sound",
+    "productivity",
+    "accessibility"
+  ],
   "activationEvents": [
     "onStartupFinished"
   ],
@@ -31,45 +41,63 @@
     "commands": [
       {
         "command": "copilotAudioNotifications.toggle",
-        "title": "Toggle Audio Notifications",
+        "title": "%commands.toggle.title%",
         "category": "Copilot Audio",
         "icon": "$(bell)"
       },
       {
         "command": "copilotAudioNotifications.testSound",
-        "title": "Test Notification Sound",
+        "title": "%commands.testSound.title%",
         "category": "Copilot Audio",
         "icon": "$(play)"
       },
       {
+        "command": "copilotAudioNotifications.testCompletionSound",
+        "title": "%commands.testCompletionSound.title%",
+        "category": "Copilot Audio",
+        "icon": "$(star)"
+      },
+      {
         "command": "copilotAudioNotifications.selectSound",
-        "title": "Select Custom Sound File...",
+        "title": "%commands.selectSound.title%",
         "category": "Copilot Audio",
         "icon": "$(file-media)"
       },
       {
+        "command": "copilotAudioNotifications.selectCompletionSound",
+        "title": "%commands.selectCompletionSound.title%",
+        "category": "Copilot Audio",
+        "icon": "$(star)"
+      },
+      {
         "command": "copilotAudioNotifications.clearSound",
-        "title": "Reset to Default Sound",
+        "title": "%commands.clearSound.title%",
         "category": "Copilot Audio",
         "icon": "$(refresh)"
       },
       {
         "command": "copilotAudioNotifications.openSettings",
-        "title": "Open Settings",
+        "title": "%commands.openSettings.title%",
         "category": "Copilot Audio",
         "icon": "$(settings-gear)"
       },
       {
         "command": "copilotAudioNotifications.showInfo",
-        "title": "Show Extension Info",
+        "title": "%commands.showInfo.title%",
         "category": "Copilot Audio",
         "icon": "$(info)"
       },
       {
         "command": "copilotAudioNotifications.donate",
-        "title": "☕ Support Development (Ko-fi)",
+        "title": "%commands.donate.title%",
         "category": "Copilot Audio",
         "icon": "$(heart)"
+      },
+      {
+        "command": "copilotAudioNotifications.testToggleState",
+        "title": "%commands.testToggleState.title%",
+        "category": "Copilot Audio",
+        "icon": "$(debug)"
       }
     ],
     "menus": {
@@ -81,7 +109,13 @@
           "command": "copilotAudioNotifications.testSound"
         },
         {
+          "command": "copilotAudioNotifications.testCompletionSound"
+        },
+        {
           "command": "copilotAudioNotifications.selectSound"
+        },
+        {
+          "command": "copilotAudioNotifications.selectCompletionSound"
         },
         {
           "command": "copilotAudioNotifications.clearSound"
@@ -94,6 +128,15 @@
         },
         {
           "command": "copilotAudioNotifications.donate"
+        },
+        {
+          "command": "copilotAudioNotifications.testToggleState"
+        },
+        {
+          "command": "copilotAudioNotifications.testSound"
+        },
+        {
+          "command": "copilotAudioNotifications.testCompletionSound"
         }
       ]
     },
@@ -103,12 +146,18 @@
         "copilotAudioNotifications.enabled": {
           "type": "boolean",
           "default": true,
-          "description": "Enable audio notifications when Copilot requires user input"
+          "description": "%configuration.enabled.description%"
         },
         "copilotAudioNotifications.customSoundPath": {
           "type": "string",
           "default": "",
-          "description": "Path to custom notification sound file (leave empty for system default)",
+          "description": "%configuration.customSoundPath.description%",
+          "scope": "application"
+        },
+        "copilotAudioNotifications.completionSoundPath": {
+          "type": "string",
+          "default": "",
+          "description": "%configuration.completionSoundPath.description%",
           "scope": "application"
         },
         "copilotAudioNotifications.volume": {
@@ -116,14 +165,21 @@
           "default": 50,
           "minimum": 0,
           "maximum": 100,
-          "description": "Volume level for notification sounds (0-100%)"
+          "description": "%configuration.volume.description%"
         },
         "copilotAudioNotifications.inactivityTimeoutSeconds": {
           "type": "number",
           "default": 30,
           "minimum": 5,
           "maximum": 300,
-          "description": "Seconds of inactivity before checking for pending interactions"
+          "description": "%configuration.inactivityTimeoutSeconds.description%"
+        },
+        "copilotAudioNotifications.copilotResponseTimeoutSeconds": {
+          "type": "number",
+          "default": 10,
+          "minimum": 3,
+          "maximum": 60,
+          "description": "%configuration.copilotResponseTimeoutSeconds.description%"
         },
         "copilotAudioNotifications.repeatNotifications": {
           "type": "boolean",
@@ -166,19 +222,38 @@
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
     "check-types": "tsc --noEmit",
     "lint": "eslint src",
-    "test": "vscode-test"
+    "test": "vscode-test",
+    "package:vsix": "vsce package",
+    "publish": "vsce publish",
+    "publish:pre": "vsce publish --pre-release",
+    "publish:dry": "vsce publish --dry-run",
+    "verify:marketplace": "vsce show PeterLockett.copilot-audio-notifications",
+    "semantic-release": "semantic-release",
+    "semantic-release:dry": "semantic-release --dry-run",
+    "docker:build": "docker-compose build",
+    "docker:start": "docker-compose up -d",
+    "docker:stop": "docker-compose stop",
+    "docker:shell": "docker-compose exec vscode-extension-dev /bin/bash",
+    "docker:package": "docker-compose exec vscode-extension-dev npm run package:vsix"
   },
   "devDependencies": {
-    "@types/vscode": "^1.102.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/exec": "^7.1.0",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^11.0.3",
+    "@semantic-release/npm": "^12.0.2",
     "@types/mocha": "^10.0.10",
     "@types/node": "20.x",
+    "@types/vscode": "^1.102.0",
     "@typescript-eslint/eslint-plugin": "^8.31.1",
     "@typescript-eslint/parser": "^8.31.1",
-    "eslint": "^9.25.1",
-    "esbuild": "^0.25.3",
-    "npm-run-all": "^4.1.5",
-    "typescript": "^5.8.3",
     "@vscode/test-cli": "^0.0.11",
-    "@vscode/test-electron": "^2.5.2"
+    "@vscode/test-electron": "^2.5.2",
+    "@vscode/vsce": "^3.2.1",
+    "esbuild": "^0.25.3",
+    "eslint": "^9.25.1",
+    "npm-run-all": "^4.1.5",
+    "semantic-release": "^24.2.7",
+    "typescript": "^5.8.3"
   }
 }

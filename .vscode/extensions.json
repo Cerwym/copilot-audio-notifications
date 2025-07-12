@@ -1,5 +1,22 @@
 {
   // See http://go.microsoft.com/fwlink/?LinkId=827846
   // for the documentation about the extensions.json format
-  "recommendations": ["dbaeumer.vscode-eslint", "connor4312.esbuild-problem-matchers", "ms-vscode.extension-test-runner"]
+  "recommendations": [
+    // Core development tools
+    "dbaeumer.vscode-eslint",
+    "connor4312.esbuild-problem-matchers", 
+    "ms-vscode.extension-test-runner",
+    "ms-vscode.vscode-typescript-next",
+    
+    // Semantic versioning and conventional commits
+    "vivaxy.vscode-conventional-commits",
+    
+    // Git and GitHub integration
+    "github.vscode-github-actions",
+    "github.vscode-pull-request-github",
+    
+    // Development environment
+    "ms-vscode-remote.remote-containers",
+    "ms-vscode.powershell"
+  ]
 }

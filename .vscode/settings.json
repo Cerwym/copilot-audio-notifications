@@ -9,5 +9,17 @@
         "dist": true // set this to false to include "dist" folder in search results
     },
     // Turn off tsc task auto detection since we have the necessary tasks as npm scripts
-    "typescript.tsc.autoDetect": "off"
+    "typescript.tsc.autoDetect": "off",
+    // Git and commit message settings
+    "git.inputValidationLength": 72,
+    "git.inputValidationSubjectLength": 50,
+    "git.useCommitInputAsStashMessage": false,
+    "scm.inputFontSize": 13,
+    "scm.inputMaxLines": 10,
+    // File associations
+    "files.associations": {
+        "*.vsix": "zip",
+        ".releaserc*": "json",
+        ".gitmessage": "plaintext"
+    }
 }

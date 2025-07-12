@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  vscode-extension-dev:
+    build: .
+    container_name: copilot-audio-notifications-dev
+    volumes:
+      # Mount source code for live development
+      - .:/workspace
+      # Persist node_modules for performance
+      - node_modules_volume:/workspace/node_modules
+      # Mount VS Code settings if needed
+      - ./.vscode:/workspace/.vscode
+    working_dir: /workspace
+    command: npm run watch
+    environment:
+      - NODE_ENV=development
+    stdin_open: true
+    tty: true
+    networks:
+      - dev-network
+
+  # Optional: Add a test runner service
+  test-runner:
+    build: .
+    container_name: copilot-audio-notifications-test
+    volumes:
+      - .:/workspace
+      - node_modules_volume:/workspace/node_modules
+    working_dir: /workspace
+    command: npm test
+    environment:
+      - NODE_ENV=test
+    depends_on:
+      - vscode-extension-dev
+    networks:
+      - dev-network
+
+volumes:
+  node_modules_volume:
+
+networks:
+  dev-network:
+    driver: bridge
