@@ -1,0 +1,21 @@
+{
+  "// Copilot Audio Notifications - Example Configuration": "",
+  "// Copy these settings to your VS Code settings.json": "",
+  
+  "copilotAudioNotifications.enabled": true,
+  "copilotAudioNotifications.volume": 75,
+  "copilotAudioNotifications.inactivityTimeoutSeconds": 20,
+  "copilotAudioNotifications.repeatNotifications": true,
+  "copilotAudioNotifications.repeatIntervalMinutes": 3,
+  "copilotAudioNotifications.customSoundPath": "",
+  
+  "// Example custom sound paths for different platforms:": "",
+  "// Windows: \"C:\\Users\\YourName\\Documents\\notification.wav\"": "",
+  "// macOS: \"/Users/YourName/Documents/notification.aiff\"": "",
+  "// Linux: \"/home/yourname/Documents/notification.wav\"": "",
+  
+  "// Quick Commands:": "",
+  "// Ctrl+Alt+B (Cmd+Alt+B on Mac) - Toggle notifications": "",
+  "// Ctrl+Alt+T (Cmd+Alt+T on Mac) - Test sound": "",
+  "// Ctrl+Shift+P > 'Copilot Audio: Select Custom Sound File' - Browse for sounds": ""
+}
