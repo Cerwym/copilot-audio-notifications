@@ -359,14 +359,44 @@ export function activate(context: vscode.ExtensionContext) {
 			'• Open settings'
 		].join('\n');
 
-		vscode.window.showInformationMessage(info, { modal: true }, 'Open Settings', 'Select Sound')
+		vscode.window.showInformationMessage(info, { modal: true }, 'Open Settings', 'Select Sound', '☕ Support Development')
 			.then(selection => {
 				if (selection === 'Open Settings') {
 					vscode.commands.executeCommand('copilotAudioNotifications.openSettings');
 				} else if (selection === 'Select Sound') {
 					vscode.commands.executeCommand('copilotAudioNotifications.selectSound');
+				} else if (selection === '☕ Support Development') {
+					vscode.commands.executeCommand('copilotAudioNotifications.donate');
 				}
 			});
+	});
+
+	const donateCommand = vscode.commands.registerCommand('copilotAudioNotifications.donate', () => {
+		const message = [
+			'☕ **Support Copilot Audio Notifications Development**\n',
+			'Thank you for considering supporting this extension! Your donation helps:',
+			'• 🔧 Maintain and improve the extension',
+			'• 🎵 Add new audio features and platform support', 
+			'• 🐛 Fix bugs and compatibility issues',
+			'• 📚 Create better documentation and examples',
+			'\n**Every coffee helps keep the code flowing!** ☕✨'
+		].join('\n');
+
+		vscode.window.showInformationMessage(
+			message, 
+			{ modal: true }, 
+			'☕ Open Ko-fi', 
+			'⭐ Rate Extension', 
+			'📧 Send Feedback'
+		).then(selection => {
+			if (selection === '☕ Open Ko-fi') {
+				vscode.env.openExternal(vscode.Uri.parse('https://ko-fi.com/peterlockett'));
+			} else if (selection === '⭐ Rate Extension') {
+				vscode.env.openExternal(vscode.Uri.parse('https://marketplace.visualstudio.com/items?itemName=PeterLockett.copilot-audio-notifications&ssr=false#review-details'));
+			} else if (selection === '📧 Send Feedback') {
+				vscode.env.openExternal(vscode.Uri.parse('https://github.com/Cerwym/copilot-audio-notifications/issues/new?template=feedback.md'));
+			}
+		});
 	});
 
 	// Monitor text editor changes to detect user activity
@@ -391,6 +421,7 @@ export function activate(context: vscode.ExtensionContext) {
 		clearSoundCommand,
 		openSettingsCommand,
 		showInfoCommand,
+		donateCommand,
 		onDidChangeActiveTextEditor,
 		onDidChangeTextDocument,
 		monitor

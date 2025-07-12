@@ -3,7 +3,7 @@
   "displayName": "Copilot Audio Notifications",
   "description": "Audio notifications when Copilot requires user input",
   "version": "0.0.1",
-  "publisher": "Cerwym",
+  "publisher": "PeterLockett",
   "repository": {
     "type": "git",
     "url": "https://github.com/Cerwym/copilot-audio-notifications.git"
@@ -12,6 +12,9 @@
     "url": "https://github.com/Cerwym/copilot-audio-notifications/issues"
   },
   "homepage": "https://github.com/Cerwym/copilot-audio-notifications#readme",
+  "sponsor": {
+    "url": "https://ko-fi.com/peterlockett"
+  },
   "engines": {
     "vscode": "^1.102.0"
   },
@@ -61,6 +64,12 @@
         "title": "Show Extension Info",
         "category": "Copilot Audio",
         "icon": "$(info)"
+      },
+      {
+        "command": "copilotAudioNotifications.donate",
+        "title": "☕ Support Development (Ko-fi)",
+        "category": "Copilot Audio",
+        "icon": "$(heart)"
       }
     ],
     "menus": {
@@ -82,6 +91,9 @@
         },
         {
           "command": "copilotAudioNotifications.showInfo"
+        },
+        {
+          "command": "copilotAudioNotifications.donate"
         }
       ]
     },
